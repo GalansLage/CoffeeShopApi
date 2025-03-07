@@ -1,6 +1,6 @@
 ﻿namespace CoffeeShopApi.Data.Entities
 {
-    public class OrderEntity:BaseEntity
+    public class OrderEntity:BaseEntity<int>
     {
         public DateTime OrderTime { get; set; }
 

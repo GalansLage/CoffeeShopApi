@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CoffeeShopApi.Data.Entities;
+using System.ComponentModel.DataAnnotations;
 
-namespace CoffeeShopApi.Data.Entities
+namespace CoffeeShopApi.Domain.DTO
 {
-    public class ClientEntity:BaseEntity<int>
+    public class ClientDTO
     {
         [MaxLength(25)]
         public string ClientName { get; set; } = null!;

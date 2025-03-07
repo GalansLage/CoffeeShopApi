@@ -2,7 +2,7 @@
 
 namespace CoffeeShopApi.Data.Entities
 {
-    public class ProductEntity:BaseEntity
+    public class ProductEntity:BaseEntity<int>
     {
         public virtual int? OrderId { get; set; }
 
