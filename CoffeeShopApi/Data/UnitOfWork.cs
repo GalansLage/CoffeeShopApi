@@ -1,5 +1,6 @@
 ﻿using CoffeeShopApi.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CoffeeShopApi.Data
 {
@@ -8,11 +9,15 @@ namespace CoffeeShopApi.Data
         public IProductRepository ProductRepository { get; }
         public IOrderRepository OrderRepository { get; }
         public IClientRepository ClientRepository { get; }
+        Task<IDbContextTransaction> BeginTransactionAsync();
+        Task CommitAsync();
         Task<int> Save();
     }
     public class UnitOfWork : IUnitOfWork
     {
         private readonly CoffeeShopContext _context;
+
+        private IDbContextTransaction _transaction;
         public IProductRepository ProductRepository { get; }
 
         public IOrderRepository OrderRepository { get; }
@@ -28,6 +33,35 @@ namespace CoffeeShopApi.Data
         }
         public void Dispose()
         => _context.Dispose();
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            _transaction = await _context.Database.BeginTransactionAsync();
+            return _transaction;
+        }
+
+        public async Task RollbackAsync()
+        {
+            if(_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+                _transaction = null;
+            }
+        }
+
+        public async Task CommitAsync()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+                await _transaction.CommitAsync();
+            }
+            catch
+            {
+                await RollbackAsync();
+                throw;
+            }
+        }
        
 
         public async Task<int> Save()

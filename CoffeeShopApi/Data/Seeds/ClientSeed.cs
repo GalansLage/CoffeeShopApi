@@ -9,6 +9,7 @@ namespace CoffeeShopApi.Data.Seeds
         public void Configure(EntityTypeBuilder<ClientEntity> builder)
         {
             builder.HasQueryFilter(c => !c.IsDeleted);
+            builder.HasIndex(c => c.Ci).IsUnique();
         }
     }
 }

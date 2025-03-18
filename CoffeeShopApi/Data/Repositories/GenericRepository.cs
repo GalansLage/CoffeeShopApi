@@ -1,5 +1,6 @@
 ﻿using CoffeeShopApi.Data.Entities;
 using CoffeeShopApi.Utils.Exeptions;
+using CoffeeShopApi.Utils.Messages;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeShopApi.Data.Repositories
@@ -37,7 +38,7 @@ namespace CoffeeShopApi.Data.Repositories
         {
             var entity = await GetById(Id);
 
-            if (entity == null) throw new NotFoundException();
+            if (entity == null) throw new NotFoundException(ProductMessages.ProductByIdNotFound());
 
             Entities.Remove(entity);
 
@@ -56,7 +57,7 @@ namespace CoffeeShopApi.Data.Repositories
         {
             var entity = await GetById(Id);
 
-            if (entity == null) throw new NotFoundException();
+            if (entity == null) throw new NotFoundException(ProductMessages.ProductByIdNotFound());
 
             entity.IsDeleted = true;
             entity.DeletedTimeUtc = DateTime.UtcNow;

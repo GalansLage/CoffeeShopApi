@@ -14,6 +14,7 @@ namespace CoffeeShopApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<MoneyEntity>();
             modelBuilder.Entity<ClientEntity>().ToTable("Client");
             modelBuilder.Entity<OrderEntity>().ToTable("Order");
             modelBuilder.Entity<ProductEntity>().ToTable("Product");
@@ -23,6 +24,9 @@ namespace CoffeeShopApi.Data
             modelBuilder.ApplyConfiguration(new ClientSeed());
 
         }
+
+        
+
 
     }
 }

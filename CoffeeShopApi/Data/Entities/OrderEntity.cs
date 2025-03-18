@@ -16,7 +16,7 @@
 
         public virtual ClientEntity? Client { get; set; }
 
-        public virtual IEnumerable<ProductEntity> Products { get; set; } = [];
+        public virtual List<ProductEntity> Products { get; set; } = [];
     }
 
     public enum PaymentMethod
@@ -27,7 +27,6 @@
     public enum State
     {
         Pendiente,
-        Proceso,
         Completado,
         Cancelado
     }

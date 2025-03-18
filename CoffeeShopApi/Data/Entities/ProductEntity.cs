@@ -12,8 +12,7 @@ namespace CoffeeShopApi.Data.Entities
         [MaxLength(125)]
         public string Description { get; set; } = null!;
 
-        [MaxLength(25)]
-        public Category Category { get; set; } 
+        public Category Category { get; set; }
 
         public int Availability { get; set; } = 0;
 
@@ -21,7 +20,7 @@ namespace CoffeeShopApi.Data.Entities
 
         public byte[] Picture { get; set; } = null!;
 
-        public OrderEntity? Order { get; set; }
+        public virtual OrderEntity? Order { get; set; }
     }
 
     public enum Category {

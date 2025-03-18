@@ -1,12 +1,10 @@
-﻿using CoffeeShopApi.Data.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using CoffeeShopApi.Data.Entities;
 
-namespace CoffeeShopApi.Domain.DTO
+namespace CoffeeShopApi.Application.InsertDTO
 {
-    public class ClientDTO
+    public class ClientInsertDTO
     {
-        public int Id { get; set; }
-
         [MaxLength(25)]
         public string ClientName { get; set; } = null!;
 
@@ -16,6 +14,6 @@ namespace CoffeeShopApi.Domain.DTO
         [MaxLength(11)]
         public string Ci { get; set; } = null!;
 
-        public OrderDTO Order { get; set; } = new OrderDTO();
+        
     }
 }

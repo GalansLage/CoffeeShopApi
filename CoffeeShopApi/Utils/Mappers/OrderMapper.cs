@@ -6,15 +6,30 @@ namespace CoffeeShopApi.Utils.Mappers
     public static class OrderMapper
     {
         public static OrderDTO ToDTO(OrderEntity entity)
-            => new OrderDTO
+        {
+            var moneyPay = new MoneyEntity(entity.TotalPay);
+            var moneyPaid = new MoneyEntity(entity.TotalPaid);
+            var productsDTO = new List<ProductDTO>(); 
+
+            foreach(var product in entity.Products)
             {
+                productsDTO.Add(ProductMapper.ToDTO(product));
+            }
+            Console.WriteLine(productsDTO.Count);
+            Console.WriteLine(entity.Products.Count);
+            return new OrderDTO
+            {
+                Id = entity.Id,
                 OrderTime = entity.OrderTime,
                 Payment = entity.Payment,
-                Products = entity.Products,
+                Products = productsDTO,
                 State = entity.State,
-                TotalPaid = entity.TotalPaid,
-                TotalPay = entity.TotalPay,
-                ClientFullName = entity.Client!.ClientName + " " + entity.Client.ClientLastName
+                TotalPaid = moneyPaid.Cash,
+                TotalPay = moneyPay.Cash,
+                ClientFullName = entity.Client?.ClientName + " " + entity.Client?.ClientLastName
             };
+
+        }
+            
     }
 }

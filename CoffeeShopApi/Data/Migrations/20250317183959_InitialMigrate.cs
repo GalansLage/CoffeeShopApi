@@ -39,7 +39,7 @@ namespace CoffeeShopApi.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OrderTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ClientId = table.Column<int>(type: "integer", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false),
                     State = table.Column<int>(type: "integer", nullable: false),
                     TotalPay = table.Column<int>(type: "integer", nullable: false),
                     TotalPaid = table.Column<int>(type: "integer", nullable: false),
@@ -55,7 +55,8 @@ namespace CoffeeShopApi.Migrations
                         name: "FK_Order_Client_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Client",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +68,7 @@ namespace CoffeeShopApi.Migrations
                     OrderId = table.Column<int>(type: "integer", nullable: true),
                     ProductName = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
                     Description = table.Column<string>(type: "character varying(125)", maxLength: 125, nullable: false),
-                    Category = table.Column<int>(type: "integer", maxLength: 25, nullable: false),
+                    Category = table.Column<int>(type: "integer", nullable: false),
                     Availability = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<int>(type: "integer", nullable: false),
                     Picture = table.Column<byte[]>(type: "bytea", nullable: false),
@@ -90,22 +91,28 @@ namespace CoffeeShopApi.Migrations
                 columns: new[] { "Id", "Availability", "Category", "DeletedTimeUtc", "Description", "IsDeleted", "LastUpdateUtc", "OrderId", "Picture", "Price", "ProductName" },
                 values: new object[,]
                 {
-                    { 1, 50, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café negro preparado con agua caliente.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 2, "Café Americano" },
-                    { 2, 30, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café espresso con leche vaporizada.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 3, "Café Latte" },
-                    { 3, 40, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café espresso con leche vaporizada y espuma de leche.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 4, "Capuchino" },
-                    { 4, 60, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Té verde natural con un toque de miel.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 2, "Té Verde" },
-                    { 5, 20, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Muffin esponjoso con arándanos frescos.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 3, "Muffin de Arándanos" },
-                    { 6, 25, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Croissant crujiente hecho con mantequilla pura.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 2, "Croissant de Mantequilla" },
-                    { 7, 15, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sándwich clásico con jamón, queso y vegetales frescos.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 5, "Sándwich de Jamón y Queso" },
-                    { 8, 10, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ensalada fresca con pollo, crutones y aderezo César.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 6, "Ensalada César" },
-                    { 9, 35, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jugo recién exprimido de naranjas frescas.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 3, "Jugo de Naranja Natural" },
-                    { 10, 18, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Brownie rico y esponjoso con trozos de chocolate.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 4, "Brownie de Chocolate" },
-                    { 11, 40, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café espresso con chocolate y leche vaporizada.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 4, "Café Mocha" },
-                    { 12, 55, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Té de manzana con un toque de canela.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 2, "Té de Manzana" },
-                    { 13, 20, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bagel fresco con queso crema suave.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 3, "Bagel con Queso Crema" },
-                    { 14, 30, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Galletas caseras de avena con pasas.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 2, "Galletas de Avena" },
-                    { 15, 25, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Smoothie refrescante con mezcla de frutas tropicales.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 5, "Smoothie de Frutas" }
+                    { 1, 50, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café negro preparado con agua caliente.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 223, "Café Americano" },
+                    { 2, 30, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café espresso con leche vaporizada.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 343, "Café Latte" },
+                    { 3, 40, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café espresso con leche vaporizada y espuma de leche.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 412, "Capuchino" },
+                    { 4, 60, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Té verde natural con un toque de miel.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 299, "Té Verde" },
+                    { 5, 20, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Muffin esponjoso con arándanos frescos.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 399, "Muffin de Arándanos" },
+                    { 6, 25, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Croissant crujiente hecho con mantequilla pura.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 299, "Croissant de Mantequilla" },
+                    { 7, 15, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sándwich clásico con jamón, queso y vegetales frescos.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 599, "Sándwich de Jamón y Queso" },
+                    { 8, 10, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ensalada fresca con pollo, crutones y aderezo César.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 699, "Ensalada César" },
+                    { 9, 35, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jugo recién exprimido de naranjas frescas.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 399, "Jugo de Naranja Natural" },
+                    { 10, 18, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Brownie rico y esponjoso con trozos de chocolate.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 499, "Brownie de Chocolate" },
+                    { 11, 40, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café espresso con chocolate y leche vaporizada.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 499, "Café Mocha" },
+                    { 12, 55, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Té de manzana con un toque de canela.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 299, "Té de Manzana" },
+                    { 13, 20, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bagel fresco con queso crema suave.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 399, "Bagel con Queso Crema" },
+                    { 14, 30, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Galletas caseras de avena con pasas.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 299, "Galletas de Avena" },
+                    { 15, 25, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Smoothie refrescante con mezcla de frutas tropicales.", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new byte[0], 599, "Smoothie de Frutas" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Client_Ci",
+                table: "Client",
+                column: "Ci",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_ClientId",

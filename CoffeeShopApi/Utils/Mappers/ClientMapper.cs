@@ -8,10 +8,11 @@ namespace CoffeeShopApi.Utils.Mappers
         public static ClientDTO ToDTO(ClientEntity client)
             => new ClientDTO
             {
+                Id = client.Id,
                 ClientName = client.ClientName,
                 ClientLastName = client.ClientLastName,
                 Ci = client.Ci,
-                Order = client.Order
+                Order = OrderMapper.ToDTO(client.Order!)
             };
     }
 }

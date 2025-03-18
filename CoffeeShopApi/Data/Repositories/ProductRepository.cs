@@ -1,13 +1,13 @@
 ﻿using CoffeeShopApi.Data.Entities;
 using CoffeeShopApi.Utils.Exeptions;
-using Microsoft.EntityFrameworkCore;
+using CoffeeShopApi.Utils.Messages;
 
 namespace CoffeeShopApi.Data.Repositories
 {
     public interface IProductRepository : IGenericRepository<ProductEntity, int>
     {
         IQueryable<ProductEntity> GetByCategory(Category category);
-        Task<ProductEntity> FilterByName(string name);
+        IQueryable<ProductEntity> FilterByName(string name);
     }
 
     public class ProductRepository : GenericRepository<ProductEntity, int>, IProductRepository
@@ -16,11 +16,11 @@ namespace CoffeeShopApi.Data.Repositories
         {
         }
 
-        public async Task<ProductEntity> FilterByName(string name)
+        public  IQueryable<ProductEntity> FilterByName(string name)
         {
-            var product = await Entities.FirstOrDefaultAsync(p => p.ProductName.Equals(name));
+            var products = Entities.Where(p=>p.ProductName.Contains(name));
 
-            return product == null ? throw new NotFoundException() : product;
+            return products == null ? throw new NotFoundException(ProductMessages.ProductByIdNotFound()) : products;
         }
 
         public IQueryable<ProductEntity> GetByCategory(Category category)=>

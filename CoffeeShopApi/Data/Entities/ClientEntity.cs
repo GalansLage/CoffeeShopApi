@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeShopApi.Data.Entities
 {
@@ -13,6 +15,6 @@ namespace CoffeeShopApi.Data.Entities
         [MaxLength(11)]
         public string Ci { get; set; } = null!;
 
-        public virtual OrderEntity? Order { get; set; }
+        public virtual OrderEntity Order { get; set; } = new();
     }
 }

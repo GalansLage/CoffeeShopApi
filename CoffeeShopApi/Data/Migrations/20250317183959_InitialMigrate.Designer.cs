@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoffeeShopApi.Migrations
 {
     [DbContext(typeof(CoffeeShopContext))]
-    [Migration("20250306205755_InitialMigrate")]
+    [Migration("20250317183959_InitialMigrate")]
     partial class InitialMigrate
     {
         /// <inheritdoc />
@@ -60,6 +60,9 @@ namespace CoffeeShopApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Ci")
+                        .IsUnique();
+
                     b.ToTable("Client", (string)null);
                 });
 
@@ -71,7 +74,7 @@ namespace CoffeeShopApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DeletedTimeUtc")
@@ -119,7 +122,6 @@ namespace CoffeeShopApi.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("Category")
-                        .HasMaxLength(25)
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DeletedTimeUtc")
@@ -169,7 +171,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 2,
+                            Price = 223,
                             ProductName = "Café Americano"
                         },
                         new
@@ -182,7 +184,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 3,
+                            Price = 343,
                             ProductName = "Café Latte"
                         },
                         new
@@ -195,7 +197,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 4,
+                            Price = 412,
                             ProductName = "Capuchino"
                         },
                         new
@@ -208,7 +210,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 2,
+                            Price = 299,
                             ProductName = "Té Verde"
                         },
                         new
@@ -221,7 +223,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 3,
+                            Price = 399,
                             ProductName = "Muffin de Arándanos"
                         },
                         new
@@ -234,7 +236,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 2,
+                            Price = 299,
                             ProductName = "Croissant de Mantequilla"
                         },
                         new
@@ -247,7 +249,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 5,
+                            Price = 599,
                             ProductName = "Sándwich de Jamón y Queso"
                         },
                         new
@@ -260,7 +262,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 6,
+                            Price = 699,
                             ProductName = "Ensalada César"
                         },
                         new
@@ -273,7 +275,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 3,
+                            Price = 399,
                             ProductName = "Jugo de Naranja Natural"
                         },
                         new
@@ -286,7 +288,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 4,
+                            Price = 499,
                             ProductName = "Brownie de Chocolate"
                         },
                         new
@@ -299,7 +301,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 4,
+                            Price = 499,
                             ProductName = "Café Mocha"
                         },
                         new
@@ -312,7 +314,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 2,
+                            Price = 299,
                             ProductName = "Té de Manzana"
                         },
                         new
@@ -325,7 +327,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 3,
+                            Price = 399,
                             ProductName = "Bagel con Queso Crema"
                         },
                         new
@@ -338,7 +340,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 2,
+                            Price = 299,
                             ProductName = "Galletas de Avena"
                         },
                         new
@@ -351,7 +353,7 @@ namespace CoffeeShopApi.Migrations
                             IsDeleted = false,
                             LastUpdateUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Picture = new byte[0],
-                            Price = 5,
+                            Price = 599,
                             ProductName = "Smoothie de Frutas"
                         });
                 });
@@ -360,7 +362,9 @@ namespace CoffeeShopApi.Migrations
                 {
                     b.HasOne("CoffeeShopApi.Data.Entities.ClientEntity", "Client")
                         .WithOne("Order")
-                        .HasForeignKey("CoffeeShopApi.Data.Entities.OrderEntity", "ClientId");
+                        .HasForeignKey("CoffeeShopApi.Data.Entities.OrderEntity", "ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Client");
                 });

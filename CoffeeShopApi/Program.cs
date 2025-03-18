@@ -1,7 +1,12 @@
 using System.Text.Json.Serialization;
 using CoffeeShopApi.Data;
+using CoffeeShopApi.Data.Interceptors;
 using CoffeeShopApi.Data.Repositories;
+using CoffeeShopApi.Domain;
+using CoffeeShopApi.Domain.StrategyContext;
+using CoffeeShopApi.Utils.Mappers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +17,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //Context
-builder.Services.AddDbContext<CoffeeShopContext>(options =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("CoffeeShopConnection") ?? throw new NotImplementedException()));
+builder.Services.AddDbContext<CoffeeShopContext>((serviceProvider,options) =>
+options
+.UseLazyLoadingProxies()
+.AddInterceptors(new CachingInterceptor(serviceProvider.GetRequiredService<IMemoryCache>()))
+.UseNpgsql(builder.Configuration.GetConnectionString("CoffeeShopConnection") ?? throw new NotImplementedException()));
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
@@ -26,6 +34,9 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ProductStrategyContext>();
+builder.Services.AddScoped<OrderStrategyContext>();
+builder.Services.AddScoped<ClientStrategyContext>();
 
 
 //Build App

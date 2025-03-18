@@ -1,4 +1,5 @@
 ﻿using CoffeeShopApi.Data.Entities;
+using CoffeeShopApi.Domain.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,7 +20,7 @@ namespace CoffeeShopApi.Data.Seeds
                     Description = "Café negro preparado con agua caliente.",
                     Category = Category.Bebidas,
                     Availability = 50,
-                    Price = 2,
+                    Price = 223,
                     Picture = new byte[0], // Aquí iría la imagen en bytes
                 },
             new ProductEntity
@@ -30,7 +31,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Café espresso con leche vaporizada.",
                 Category = Category.Bebidas,
                 Availability = 30,
-                Price = 3,
+                Price = 343,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -41,7 +42,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Café espresso con leche vaporizada y espuma de leche.",
                 Category = Category.Bebidas,
                 Availability = 40,
-                Price = 4,
+                Price = 412,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -52,7 +53,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Té verde natural con un toque de miel.",
                 Category = Category.Bebidas,
                 Availability = 60,
-                Price = 2,
+                Price = 299,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -63,7 +64,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Muffin esponjoso con arándanos frescos.",
                 Category = Category.Postres,
                 Availability = 20,
-                Price = 3,
+                Price = 399,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -74,7 +75,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Croissant crujiente hecho con mantequilla pura.",
                 Category = Category.Postres,
                 Availability = 25,
-                Price = 2,
+                Price = 299,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -85,18 +86,18 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Sándwich clásico con jamón, queso y vegetales frescos.",
                 Category = Category.Snacks,
                 Availability = 15,
-                Price = 5,
+                Price = 599,
                 Picture = new byte[0],
             },
             new ProductEntity
             {
                 Id = 8,
                 OrderId = null,
-                ProductName = "Ensalada César",
+                ProductName = "Ensalada César", 
                 Description = "Ensalada fresca con pollo, crutones y aderezo César.",
                 Category = Category.Snacks,
                 Availability = 10,
-                Price = 6,
+                Price = 699,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -107,7 +108,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Jugo recién exprimido de naranjas frescas.",
                 Category = Category.Bebidas,
                 Availability = 35,
-                Price = 3,
+                Price = 399,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -118,7 +119,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Brownie rico y esponjoso con trozos de chocolate.",
                 Category = Category.Postres,
                 Availability = 18,
-                Price = 4,
+                Price = 499,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -129,7 +130,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Café espresso con chocolate y leche vaporizada.",
                 Category = Category.Bebidas,
                 Availability = 40,
-                Price = 4,
+                Price = 499,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -140,7 +141,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Té de manzana con un toque de canela.",
                 Category = Category.Bebidas,
                 Availability = 55,
-                Price = 2,
+                Price = 299,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -151,7 +152,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Bagel fresco con queso crema suave.",
                 Category = Category.Snacks,
                 Availability = 20,
-                Price = 3,
+                Price = 399,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -162,7 +163,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Galletas caseras de avena con pasas.",
                 Category = Category.Postres,
                 Availability = 30,
-                Price = 2,
+                Price = 299,
                 Picture = new byte[0],
             },
             new ProductEntity
@@ -173,7 +174,7 @@ namespace CoffeeShopApi.Data.Seeds
                 Description = "Smoothie refrescante con mezcla de frutas tropicales.",
                 Category = Category.Bebidas,
                 Availability = 25,
-                Price = 5,
+                Price = 599,
                 Picture = new byte[0]
             }
              );
