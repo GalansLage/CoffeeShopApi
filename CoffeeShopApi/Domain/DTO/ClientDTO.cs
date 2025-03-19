@@ -18,4 +18,25 @@ namespace CoffeeShopApi.Domain.DTO
 
         public OrderDTO Order { get; set; } = new OrderDTO();
     }
+
+    public class ClientsApiResponse
+    {
+        public string? Response { get; set; }
+        public int StatusRequest { get; set; }
+        public List<ClientDTO> Clients { get; set; }
+    } 
+    
+    public class ClientApiResponse
+    {
+        public string? Response { get; set; }
+        public int StatusRequest { get; set; }
+        public ClientDTO Client { get; set; }
+    }
+    
+    public class NoApiResponse
+    {
+        public string? Response { get; set; }
+        public int StatusRequest { get; set; }
+        public ClientDTO Client { get; set; }
+    }
 }

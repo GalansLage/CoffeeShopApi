@@ -24,7 +24,16 @@ namespace CoffeeShopApi.Application.Controllers
         {
             try
             {
-                return Ok(await _strategy.GetAll(pageNumber, pageSize));
+                var clients = await _strategy.GetAll(pageNumber, pageSize);
+
+                var response = new ClientsApiResponse
+                {
+                    Response = "success",
+                    StatusRequest = 200,
+                    Clients = clients
+                };
+
+                return Ok(response);
             }
             catch(NotFoundException ex)
             {
@@ -37,30 +46,13 @@ namespace CoffeeShopApi.Application.Controllers
             }
         }
 
-        //[HttpGet("GetAllWithOrders")]
-        //public async Task<ActionResult<List<ClientDTO>>> ClientGetAllWithOrders(int pageNumber, int pageSize)
-        //{
-        //    try
-        //    {
-        //        return Ok(await _strategy.GetAllWithOrders(pageNumber, pageSize));
-        //    }
-        //    catch (NotFoundException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Data);
-        //        return StatusCode(500, "Ha ocurrido un error con la recuest");
-        //    }
-        //}
-
+      
         [HttpGet("{Id}")]
         public async Task<ActionResult<ClientDTO>> ClientGetById(int Id)
         {
             try
             {
-                return Ok(await _strategy.GetById(Id));
+                return Ok(ApiResponse<ClientDTO>.Success(await _strategy.GetById(Id)));
             }
             catch (NotFoundException ex)
             {

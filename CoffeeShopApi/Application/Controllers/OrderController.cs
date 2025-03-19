@@ -23,7 +23,7 @@ namespace CoffeeShopApi.Application.Controllers
         {
             try
             {
-                return Ok(await _strategy.GetAll(pageNumber, pageSize));
+                return Ok(ApiResponse<OrderDTO>.Success(await _strategy.GetAll(pageNumber, pageSize)));
             }
             catch (NotFoundException ex)
             {
@@ -41,7 +41,7 @@ namespace CoffeeShopApi.Application.Controllers
         {
             try
             {
-                return Ok(await _strategy.GetById(Id));
+                return Ok(ApiResponse<OrderDTO>.Success(await _strategy.GetById(Id)));
             }
             catch (NotFoundException ex)
             {

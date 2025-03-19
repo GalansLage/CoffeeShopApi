@@ -24,7 +24,7 @@ namespace CoffeeShopApi.Application.Controllers
         {
             try
             {
-                return Ok(await _strategyContext.GetAll(pageNumber, pageSize));
+                return Ok(ApiResponse<ProductDTO>.Success(await _strategyContext.GetAll(pageNumber, pageSize)));
             }
             catch(NotFoundException ex)
             {
@@ -38,7 +38,7 @@ namespace CoffeeShopApi.Application.Controllers
         {
             try
             {
-                return Ok(await _strategyContext.GetById(Id));
+                return Ok(ApiResponse<ProductDTO>.Success(await _strategyContext.GetById(Id)));
             }
             catch(NotFoundException ex)
             {
@@ -101,7 +101,7 @@ namespace CoffeeShopApi.Application.Controllers
         {
             try
             {
-                return await _strategyContext.FilterByCategory(category);
+                return Ok(ApiResponse<ProductDTO>.Success(await _strategyContext.FilterByCategory(category)));
             }
             catch(NotFoundException ex)
             {
@@ -114,7 +114,7 @@ namespace CoffeeShopApi.Application.Controllers
         {
             try
             {
-                return await _strategyContext.FilterByName(productName);
+                return Ok(ApiResponse<ProductDTO>.Success(await _strategyContext.FilterByName(productName)));
             }
             catch (NotFoundException ex)
             {
