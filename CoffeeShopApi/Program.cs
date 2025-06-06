@@ -52,6 +52,19 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("SwaggerPolicy", policy =>
+    {
+        policy.WithOrigins(
+                "https://[tu-servicio].onrender.com",
+                "http://[tu-servicio].onrender.com")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
 
 //Context
@@ -111,7 +124,27 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseSwagger();
+app.UseCors("SwaggerPolicy");
+
+app.UseSwagger(c =>
+{
+    c.RouteTemplate = "swagger/{documentName}/swagger.json";
+    c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+    {
+        swaggerDoc.Servers = new List<OpenApiServer>
+        {
+            new OpenApiServer { Url = $"https://{httpReq.Host.Value}" }
+        };
+    });
+});
+
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoffeeShop API v1");
+    c.RoutePrefix = "swagger";
+    c.ConfigObject.DisplayRequestDuration = true;
+});
+
 app.UseSwaggerUI();
 
 
