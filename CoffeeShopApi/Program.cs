@@ -79,7 +79,7 @@ builder.Services.AddDbContext<CoffeeShopContext>((serviceProvider,options) =>
 options
 .UseLazyLoadingProxies()
 .AddInterceptors(new CachingInterceptor(serviceProvider.GetRequiredService<IMemoryCache>()))
-.UseNpgsql(ConnectionStringParser.ParseConnectionString(connectionString) ?? throw new NotImplementedException()));
+.UseNpgsql(builder.Configuration.GetConnectionString("CoffeeShopConnection") ?? throw new NotImplementedException()));
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
