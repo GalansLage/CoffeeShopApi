@@ -1,4 +1,4 @@
-@CoffeeShopApi_HostAddress = http://localhost:5182
+@CoffeeShopApi_HostAddress = http://localhost:10000
 
 GET {{CoffeeShopApi_HostAddress}}/weatherforecast/
 Accept: application/json

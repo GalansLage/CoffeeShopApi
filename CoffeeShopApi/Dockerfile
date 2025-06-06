@@ -3,7 +3,7 @@
 # Fase base
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 10000
 ENV ASPNETCORE_URLS=http://*:$PORT
 
 # Fase de construcción
