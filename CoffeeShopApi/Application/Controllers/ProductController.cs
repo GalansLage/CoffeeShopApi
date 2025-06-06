@@ -4,6 +4,7 @@ using CoffeeShopApi.Domain.DTO;
 using CoffeeShopApi.Domain.StrategyContext;
 using CoffeeShopApi.Utils.Exeptions;
 using CoffeeShopApi.Utils.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoffeeShopApi.Application.Controllers
@@ -20,6 +21,7 @@ namespace CoffeeShopApi.Application.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetAllProducts(int pageNumber, int pageSize)
         {
             try

@@ -3,6 +3,7 @@ using System;
 using CoffeeShopApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,13 +12,18 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoffeeShopApi.Migrations
 {
     [DbContext(typeof(CoffeeShopContext))]
-    partial class CoffeeShopContextModelSnapshot : ModelSnapshot
+    [Migration("20250510033224_InitialMigrate")]
+    partial class InitialMigrate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "9.0.3")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -71,7 +77,7 @@ namespace CoffeeShopApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DeletedTimeUtc")
@@ -359,9 +365,7 @@ namespace CoffeeShopApi.Migrations
                 {
                     b.HasOne("CoffeeShopApi.Data.Entities.ClientEntity", "Client")
                         .WithOne("Order")
-                        .HasForeignKey("CoffeeShopApi.Data.Entities.OrderEntity", "ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CoffeeShopApi.Data.Entities.OrderEntity", "ClientId");
 
                     b.Navigation("Client");
                 });
@@ -377,7 +381,8 @@ namespace CoffeeShopApi.Migrations
 
             modelBuilder.Entity("CoffeeShopApi.Data.Entities.ClientEntity", b =>
                 {
-                    b.Navigation("Order");
+                    b.Navigation("Order")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Data.Entities.OrderEntity", b =>

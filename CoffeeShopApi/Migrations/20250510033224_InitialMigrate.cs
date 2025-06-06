@@ -39,7 +39,7 @@ namespace CoffeeShopApi.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OrderTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ClientId = table.Column<int>(type: "integer", nullable: false),
+                    ClientId = table.Column<int>(type: "integer", nullable: true),
                     State = table.Column<int>(type: "integer", nullable: false),
                     TotalPay = table.Column<int>(type: "integer", nullable: false),
                     TotalPaid = table.Column<int>(type: "integer", nullable: false),
@@ -55,8 +55,7 @@ namespace CoffeeShopApi.Migrations
                         name: "FK_Order_Client_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
