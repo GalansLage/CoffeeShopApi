@@ -17,7 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configuración de CORS para Render y desarrollo local
 var corsAllowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
-    ?? new[] { "https://*.onrender.com", "http://localhost:*" };
+    ?? new[] {
+        "https://coffeeshopapi-1.onrender.com"};
 
 builder.Services.AddCors(options =>
 {
@@ -38,35 +39,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen(c =>
-//{
-//    c.SwaggerDoc("v1", new OpenApiInfo { Title = "CoffeeShopApi", Version = "v1" });
-
-//    // Configuración para soportar JWT en Swagger
-//    var securityScheme = new OpenApiSecurityScheme
-//    {
-//        Name = "Authorization",
-//        Description = "Ingresa el token JWT en el formato: Bearer {token}",
-//        In = ParameterLocation.Header,
-//        Type = SecuritySchemeType.Http,
-//        Scheme = "bearer", // "bearer" debe estar en minúsculas
-//        BearerFormat = "JWT",
-//        Reference = new OpenApiReference
-//        {
-//            Type = ReferenceType.SecurityScheme,
-//            Id = "Bearer"
-//        }
-//    };
-
-//    c.AddSecurityDefinition("Bearer", securityScheme);
-
-//    var securityRequirement = new OpenApiSecurityRequirement
-//    {
-//        { securityScheme, new[] { "Bearer" } }
-//    };
-
-//    c.AddSecurityRequirement(securityRequirement);
-//});
 
 builder.Services.AddSwaggerGen();
 
@@ -131,11 +103,6 @@ var app = builder.Build();
 
 app.UseCors("RenderCorsPolicy");
 
-// Configure the HTTP request pipeline.
-app.UseCors(builder => builder
-    .WithOrigins("https://coffeeshopapi-1.onrender.com")
-    .AllowAnyMethod()
-    .AllowAnyHeader());
 
 app.UseSwagger(c =>
 {
