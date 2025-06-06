@@ -121,7 +121,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+try {
+    MigrationsExtensions.ApplyMigrations(app);
+}catch (Exception ex)
+{
+    Console.WriteLine($"Error aplicando migraciones: {ex.Message}");
+}
 
-//MigrationsExtensions.ApplyMigrations(app);
+
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 app.Run($"http://0.0.0.0:{port}");
