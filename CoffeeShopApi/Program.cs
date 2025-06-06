@@ -5,7 +5,6 @@ using CoffeeShopApi.Data.Interceptors;
 using CoffeeShopApi.Data.Repositories;
 using CoffeeShopApi.Domain.StrategyContext;
 using CoffeeShopApi.Migrations;
-using CoffeeShopApi.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
@@ -43,9 +42,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
-
 //Context
 builder.Services.AddDbContext<CoffeeShopContext>((serviceProvider,options) =>
 options
@@ -68,26 +64,26 @@ builder.Services.AddScoped<ProductStrategyContext>();
 builder.Services.AddScoped<OrderStrategyContext>();
 builder.Services.AddScoped<ClientStrategyContext>();
 
-builder.Services.AddAuthentication(config =>
-{
-    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(config =>
-{
-    config.RequireHttpsMetadata = false;
-    config.SaveToken = true;
-    config.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ClockSkew = TimeSpan.Zero,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:key"]!))
+//builder.Services.AddAuthentication(config =>
+//{
+//    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer(config =>
+//{
+//    config.RequireHttpsMetadata = false;
+//    config.SaveToken = true;
+//    config.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+//    {
+//        ValidateIssuerSigningKey = true,
+//        ValidateIssuer = false,
+//        ValidateAudience = false,
+//        ValidateLifetime = true,
+//        ClockSkew = TimeSpan.Zero,
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:key"]!))
 
-    };
+//    };
 
-});
+//});
 
 builder.Services.AddHttpsRedirection(options =>
 {
