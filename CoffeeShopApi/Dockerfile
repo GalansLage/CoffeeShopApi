@@ -8,15 +8,15 @@ ENV ASPNETCORE_URLS=http://*:$PORT
 
 # Fase de construcción
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src/CoffeeShopApi
-COPY ["src/CoffeeShopApi/CoffeeShopApi.csproj", "./"]
-RUN dotnet restore "src/CoffeeShopApi/CoffeeShopApi.csproj"
+WORKDIR /src
+COPY ["CoffeeShopApi/CoffeeShopApi.csproj", "./"]
+RUN dotnet restore "CoffeeShopApi/CoffeeShopApi.csproj"
 COPY . .
-RUN dotnet build "src/CoffeeShopApi/CoffeeShopApi.csproj" -c Release -o /app/build
+RUN dotnet build "CoffeeShopApi/CoffeeShopApi.csproj" -c Release -o /app/build
 
 # Fase de publicación
 FROM build AS publish
-RUN dotnet publish "src/CoffeeShopApi/CoffeeShopApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "CoffeeShopApi/CoffeeShopApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Fase final
 FROM base AS final
