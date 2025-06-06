@@ -15,6 +15,24 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuración de CORS para Render y desarrollo local
+var corsAllowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+    ?? new[] { "https://*.onrender.com", "http://localhost:*" };
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("RenderCorsPolicy", policy =>
+    {
+        policy.WithOrigins(corsAllowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+
+        // Específico para PostgreSQL y Swagger
+        policy.WithExposedHeaders("Content-Disposition");
+    });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -52,17 +70,6 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("SwaggerPolicy", policy =>
-    {
-        policy.WithOrigins(
-                "https://[tu-servicio].onrender.com",
-                "http://[tu-servicio].onrender.com")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
 
 
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
@@ -122,9 +129,10 @@ builder.Services.AddDataProtection()
 //Build App
 var app = builder.Build();
 
+app.UseCors("RenderCorsPolicy");
+
 // Configure the HTTP request pipeline.
 
-app.UseCors("SwaggerPolicy");
 
 app.UseSwagger(c =>
 {
