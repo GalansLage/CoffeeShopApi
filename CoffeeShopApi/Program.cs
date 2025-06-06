@@ -113,6 +113,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-MigrationsExtensions.ApplyMigrations(app);
+//MigrationsExtensions.ApplyMigrations(app);
 
 app.Run();
