@@ -7,6 +7,7 @@ using CoffeeShopApi.Domain.StrategyContext;
 using CoffeeShopApi.Migrations;
 using CoffeeShopApi.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
@@ -95,6 +96,15 @@ builder.Services.AddAuthentication(config =>
     };
 
 });
+
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = 443;
+});
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo("/app/data-protection-keys"))
+    .SetApplicationName("CoffeeShopApi");
 
 //Build App
 var app = builder.Build();
