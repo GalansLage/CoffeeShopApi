@@ -132,7 +132,10 @@ var app = builder.Build();
 app.UseCors("RenderCorsPolicy");
 
 // Configure the HTTP request pipeline.
-
+app.UseCors(builder => builder
+    .WithOrigins("https://coffeeshopapi-1.onrender.com")
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseSwagger(c =>
 {
