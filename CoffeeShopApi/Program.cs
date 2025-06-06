@@ -50,12 +50,14 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+
 //Context
 builder.Services.AddDbContext<CoffeeShopContext>((serviceProvider,options) =>
 options
 .UseLazyLoadingProxies()
 .AddInterceptors(new CachingInterceptor(serviceProvider.GetRequiredService<IMemoryCache>()))
-.UseNpgsql(builder.Configuration.GetConnectionString("CoffeeShopConnection") ?? throw new NotImplementedException()));
+.UseNpgsql(connectionString ?? throw new NotImplementedException()));
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
