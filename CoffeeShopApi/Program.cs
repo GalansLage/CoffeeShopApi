@@ -5,6 +5,7 @@ using CoffeeShopApi.Data.Interceptors;
 using CoffeeShopApi.Data.Repositories;
 using CoffeeShopApi.Domain.StrategyContext;
 using CoffeeShopApi.Migrations;
+using CoffeeShopApi.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -57,7 +58,7 @@ builder.Services.AddDbContext<CoffeeShopContext>((serviceProvider,options) =>
 options
 .UseLazyLoadingProxies()
 .AddInterceptors(new CachingInterceptor(serviceProvider.GetRequiredService<IMemoryCache>()))
-.UseNpgsql(connectionString ?? throw new NotImplementedException()));
+.UseNpgsql(ConnectionStringParser.ParseConnectionString(connectionString) ?? throw new NotImplementedException()));
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
