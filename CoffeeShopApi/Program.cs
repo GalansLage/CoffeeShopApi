@@ -16,7 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuración de CORS para Render y desarrollo local
 var corsAllowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
     ?? new[] {
-        "https://coffeeshopapi-1.onrender.com"};
+        "https://coffeeshopapi-1.onrender.com",
+    "http://localhost:5173"};
 
 builder.Services.AddCors(options =>
 {
